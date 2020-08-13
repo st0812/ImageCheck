@@ -1,0 +1,64 @@
+﻿reference:参考文献リスト
+
+@misc{LINQを使って44:online,
+author = {},
+title = {LINQ を使って 8 行で k-means 法を実装してみた - Qiita},
+howpublished = {\url{https://qiita.com/ytakashina/items/ad6f4c05940fa11b02ad}},
+month = {},
+year = {},
+note = {(Accessed on 08/13/2020)}
+}
+
+@misc{RGBからHSV32:online,
+author = {},
+title = {RGBからHSVへの変換と復元 - [物理のかぎしっぽ]},
+howpublished = {\url{http://hooktail.org/computer/index.php?RGB%A4%AB%A4%E9HSV%A4%D8%A4%CE%CA%D1%B4%B9%A4%C8%C9%FC%B8%B5}},
+month = {},
+year = {},
+note = {(Accessed on 08/13/2020)}
+}
+
+@misc{httpsyan86:online,
+author = {},
+title = {https://yanohirota.com/color-converter/},
+howpublished = {\url{https://yanohirota.com/color-converter/}},
+month = {},
+year = {},
+note = {(Accessed on 08/13/2020)}
+}
+
+@misc{Cにおける「ビッ2:online,
+author = {},
+title = {C\#における「ビットマップ形式の画像データを相互変換」まとめ - Qiita},
+howpublished = {\url{https://qiita.com/YSRKEN/items/a24bf2173f0129a5825c}},
+month = {},
+year = {},
+note = {(Accessed on 08/13/2020)}
+}
+
+@misc{ファイルドロップ20:online,
+author = {},
+title = {ファイルドロップ時にコマンドを実行する添付ビヘイビア - SourceChord},
+howpublished = {\url{http://sourcechord.hatenablog.com/entry/2014/03/16/174326}},
+month = {},
+year = {},
+note = {(Accessed on 08/13/2020)}
+}
+
+@misc{WPFとVBNE36:online,
+author = {},
+title = {WPFとVB.NET、表示した画像をクリックした場所の色の取得はややこしい - 午後わてんのブログ},
+howpublished = {\url{https://gogowaten.hatenablog.com/entry/13952774}},
+month = {},
+year = {},
+note = {(Accessed on 08/13/2020)}
+}
+
+@misc{»WPF学習用ド64:online,
+author = {},
+title = {» WPF 学習用ドキュメント作りました},
+howpublished = {\url{http://kisuke0303.sakura.ne.jp/blog/?p=340}},
+month = {},
+year = {},
+note = {(Accessed on 08/13/2020)}
+}
