@@ -83,7 +83,7 @@ namespace ImageChecker.ViewModels
             var a = Clustering.KMeans(features.Where(v => DstColorRegion.IsHSVColorInRegion(v.X, v.Y, v.Z)).ToArray(), ClusterNum);
             var center = a.Item1;
             var labels = a.Item2;
-            Pallets = new List<Pallet>();
+            
             var tmppallets = new List<Pallet>();
             for (int i = 0; i < ClusterNum; i++)
             {
