@@ -16,6 +16,31 @@ namespace ImageChecker.Models
             var array = self as Vector3[] ?? self.ToArray();
             return array.Aggregate(Vector3.Zero, (v1, v2) => v1 + v2) / array.Length;
         }
+
+        public static Vector3 Average2(this IEnumerable<Vector3> self)
+        {
+            var array = self as Vector3[] ?? self.ToArray();
+            double Xx=0;
+            double Xy=0;
+            double Y = 0;
+            double Z = 0;
+            foreach(var v in array)
+            {
+                var v1xcos = Math.Cos(Math.PI * v.X / 180);
+                var v1xsin = Math.Sin(Math.PI * v.X / 180);
+                Xx += v1xcos;
+                Xy += v1xsin;
+                Y += v.Y;
+                Z += v.Z;
+                
+            }
+            var tmp = Math.Atan2(Xy , Xx);
+            if (tmp < 0) tmp +=2.0* Math.PI;
+            tmp = tmp *180/Math.PI;
+
+            return new Vector3((float)tmp, (float)(Y / array.Length), (float)(Z / array.Length));
+        }
+
     }
     class Clustering
     {
@@ -37,7 +62,8 @@ namespace ImageChecker.Models
                     double minlength = double.MaxValue;
                     for (int index = 0; index < k; index++)
                     {
-                        var tmp = (means[index] - data[i]).LengthSquared();
+                        //var tmp = (means[index] - data[i]).LengthSquared();
+                        var tmp = HSVColorRegion.Distance(means[index] , data[i]);
 
                         if (tmp < minlength)
                         {
@@ -51,7 +77,7 @@ namespace ImageChecker.Models
                 }
 
                 if (Enumerable.Range(0, assignments.Length).All(i => assignments[i] == prevAssignments[i])) break;
-                means = means.Select((m, i) => data.Where((v, j) => i == assignments[j]).DefaultIfEmpty(m).Average()).ToList();
+                means = means.Select((m, i) => data.Where((v, j) => i == assignments[j]).DefaultIfEmpty(m).Average2()).ToList();
             }
             return Tuple.Create(means.ToArray(), assignments);
         }

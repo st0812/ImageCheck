@@ -89,12 +89,12 @@ namespace ImageChecker.ViewModels
             {
                 var targetvec = center[i];
                 var targetrgb = HSVColorRegion.HSVtoRGB(targetvec);
-                var color = System.Drawing.Color.FromArgb(255, (byte)targetrgb.X, (byte)targetrgb.Y, (byte)targetrgb.Z);
+                var color = System.Drawing.Color.FromArgb((byte)targetrgb.X, (byte)targetrgb.Y, (byte)targetrgb.Z);
                 tmppallets.Add(new Pallet { H = (int)targetvec.X, S = (int)targetvec.Y, V = (int)targetvec.Z, color = color });
             }
             Pallets = tmppallets;
 
-            Bitmap dst = new Bitmap(bitmap.Width, bitmap.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Bitmap dst = new Bitmap(bitmap.Width, bitmap.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
             count = 0;
             for (int x = 0; x < bitmap.Width; x++)
             {
@@ -110,8 +110,8 @@ namespace ImageChecker.ViewModels
                     }
                     else
                     {
-                        var srccolor = bitmap.GetPixel(x, y);
-                        dst.SetPixel(x, y, System.Drawing.Color.FromArgb(1, srccolor.R, srccolor.G, srccolor.B));
+                        //var srccolor = bitmap.GetPixel(x, y);
+                        //dst.SetPixel(x, y, System.Drawing.Color.FromArgb(1, srccolor.R, srccolor.G, srccolor.B));
                     }
 
 
@@ -188,7 +188,7 @@ namespace ImageChecker.ViewModels
                 this._dstBitmap = value;
                 using (var ms = new System.IO.MemoryStream())
                 {
-                    _dstBitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    _dstBitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                     ms.Seek(0, System.IO.SeekOrigin.Begin);
 
                     DstBitmapSource =
@@ -210,7 +210,7 @@ namespace ImageChecker.ViewModels
                 return _saveCommand = _saveCommand ?? new DelegateCommand(
                     _ =>
                     {
-                        DstBitmap.Save(DstFilePath);
+                        DstBitmap.Save(DstFilePath, System.Drawing.Imaging.ImageFormat.Jpeg);
 
                     },
                     _ =>

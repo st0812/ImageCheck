@@ -14,6 +14,24 @@ namespace ImageChecker.Models
 {
     class HSVColorRegion : NotificationObject
     {
+
+        public static double Distance(Vector3 vec1,Vector3 vec2)
+        {
+            //System.Diagnostics.Debug.WriteLine(vec1.X);
+            double x1 = vec1.X;
+            double x2 = vec2.X;
+            if (x2 > x1)
+            {
+                double tmp;
+                tmp = x1;
+                x1 = x2;
+                x2 = x1;
+            }
+            return Math.Pow(Math.Sin(Math.PI*(x1-x2)/180.0/2),2.0)*100 + Math.Pow(vec1.Y - vec2.Y,2.0) + Math.Pow(vec1.Z - vec2.Z,2.0);
+            
+        }
+
+
         private double _hueStart;
         public double HueStart
         {
