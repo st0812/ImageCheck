@@ -80,7 +80,7 @@ namespace ImageChecker.ViewModels
 
 
 
-            var a = Clustering.KMeans(features.Where(v => DstColorRegion.IsHSVColorInRegion(v.X, v.Y, v.Z)).ToArray(), ClusterNum,LoopUpperLimit,Method);
+            var a = Clustering.KMeans(features.Where(v => DstColorRegion.IsHSVColorInRegion(v.X, v.Y, v.Z)).ToArray(), ClusterNum,LoopUpperLimit,SelectedCalculateMethod.Method,SelectedCalculateMethod.Distance);
             var center = a.Item1;
             var labels = a.Item2;
             
@@ -259,6 +259,7 @@ namespace ImageChecker.ViewModels
         {
             public string Name { get; set; }
             public Func<IEnumerable<Vector3>, Vector3> Method { get; set; }
+            public Func<Vector3,Vector3,double> Distance { get; set; }
         }
         private List<CalculateMethod> _methodList;
         public List<CalculateMethod> MethodList
@@ -272,19 +273,19 @@ namespace ImageChecker.ViewModels
                 SetProperty(ref this._methodList, value);
             }
         }
-        private Func<IEnumerable<Vector3>, Vector3> _method;
-        public  Func<IEnumerable<Vector3>, Vector3> Method
+        private CalculateMethod _calculateMethod;
+        public  CalculateMethod SelectedCalculateMethod
         {
             get
             {
-                return this._method;
+                return this._calculateMethod;
             }
             set
             {
-                SetProperty(ref this._method, value);
+                SetProperty(ref this._calculateMethod, value);
             }
         }
-        
+       
         public MainViewModel()
         {
 
@@ -293,12 +294,14 @@ namespace ImageChecker.ViewModels
                new CalculateMethod
                {
                    Name="Average",
-                   Method=HSVColorRegion.Average
+                   Method=HSVColorRegion.Average,
+                   Distance=HSVColorRegion.LengthSquared
                },
                new CalculateMethod
                {
                    Name="Average2",
-                   Method=HSVColorRegion.Average2
+                   Method=HSVColorRegion.Average2,
+                   Distance=HSVColorRegion.Distance
                }
                                            
             };
@@ -307,15 +310,14 @@ namespace ImageChecker.ViewModels
             DstColorRegion = new HSVColorRegion()
             {
                 HueStart = 0.0,
-                HueEnd = 360.0,
+                HueEnd = 361.0,
                 SaturationStart = 0.0,
-                SaturationEnd = 100.0,
+                SaturationEnd = 101.0,
                 ValueStart = 0.0,
-                ValueEnd = 100.0,
+                ValueEnd = 101.0,
             };
             ClusterNum = 3;
             LoopUpperLimit = 10;
-
 
         }
 

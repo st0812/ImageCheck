@@ -14,16 +14,37 @@ namespace ImageChecker.Models
 {
     class HSVColorRegion : NotificationObject
     {
-       
+
+        public static double LengthSquared(Vector3 vec1, Vector3 vec2)
+        {
+            return (vec1 - vec2).LengthSquared();
+        }
+        public static double Distance(Vector3 vec1, Vector3 vec2)
+        {
             
-            public static Vector3 Average(IEnumerable<Vector3> self)
+            double x1 = vec1.X;
+            double x2 = vec2.X;
+            if (x2 > x1)
+
             {
-                var array = self as Vector3[] ?? self.ToArray();
-                return array.Aggregate(Vector3.Zero, (v1, v2) => v1 + v2) / array.Length;
+
+                double tmp;
+                tmp = x1;
+                x1 = x2;
+                x2 = x1;
             }
+            return Math.Pow(Math.Sin(Math.PI * (x1 - x2) / 180.0 / 2), 2.0) * 100 + Math.Pow(vec1.Y - vec2.Y, 2.0) + Math.Pow(vec1.Z - vec2.Z, 2.0);
+
+        }
+
+        public static Vector3 Average(IEnumerable<Vector3> self)
+        {
+            var array = self as Vector3[] ?? self.ToArray();
+            return array.Aggregate(Vector3.Zero, (v1, v2) => v1 + v2) / array.Length;
+        }
 
 
-            public static Vector3 Average2(IEnumerable<Vector3> self)
+        public static Vector3 Average2(IEnumerable<Vector3> self)
             {
             
                 var array = self as Vector3[] ?? self.ToArray();

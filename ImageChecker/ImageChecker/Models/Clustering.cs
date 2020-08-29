@@ -14,7 +14,7 @@ namespace ImageChecker.Models
     
     class Clustering
     {
-        public static Tuple<Vector3[], int[]> KMeans(Vector3[] data, int k, int loopUpperLimit, Func<IEnumerable<Vector3>, Vector3> average)
+        public static Tuple<Vector3[], int[]> KMeans(Vector3[] data, int k, int loopUpperLimit, Func<IEnumerable<Vector3>, Vector3> average,Func<Vector3,Vector3,double> distance)
         {
             var rand = new Random();
             var means = data.OrderBy(v => rand.Next()).Take(k).ToList();
@@ -26,7 +26,7 @@ namespace ImageChecker.Models
                 var prevAssignments = assignments.Select(v => v).ToArray();
 
 
-                assignments = data.Select(v => means.IndexOf(means.MinBy(m => (v - m).LengthSquared()).First())).ToArray();
+                assignments = data.Select(v => means.IndexOf(means.MinBy(m => distance(v,m)).First())).ToArray();
                 
 
                 if (Enumerable.Range(0, assignments.Length).All(i => assignments[i] == prevAssignments[i])) break;

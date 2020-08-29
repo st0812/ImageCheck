@@ -112,7 +112,7 @@
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Loop Upper Limit:"/>
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LoopUpperLimit, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Method:"/>
-                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding MethodList, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding Method, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Method" DisplayMemberPath="Name"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding MethodList, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedCalculateMethod, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath="Name"/>
                         
                         
 
