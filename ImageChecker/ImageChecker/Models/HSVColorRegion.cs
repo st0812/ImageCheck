@@ -14,23 +14,31 @@ namespace ImageChecker.Models
 {
     class HSVColorRegion : NotificationObject
     {
-
-        public static double Distance(Vector3 vec1,Vector3 vec2)
-        {
-            //System.Diagnostics.Debug.WriteLine(vec1.X);
-            double x1 = vec1.X;
-            double x2 = vec2.X;
-            if (x2 > x1)
-            {
-                double tmp;
-                tmp = x1;
-                x1 = x2;
-                x2 = x1;
-            }
-            return Math.Pow(Math.Sin(Math.PI*(x1-x2)/180.0/2),2.0)*100 + Math.Pow(vec1.Y - vec2.Y,2.0) + Math.Pow(vec1.Z - vec2.Z,2.0);
+       
             
-        }
+            public static Vector3 Average(IEnumerable<Vector3> self)
+            {
+                var array = self as Vector3[] ?? self.ToArray();
+                return array.Aggregate(Vector3.Zero, (v1, v2) => v1 + v2) / array.Length;
+            }
 
+
+            public static Vector3 Average2(IEnumerable<Vector3> self)
+            {
+            
+                var array = self as Vector3[] ?? self.ToArray();
+                var aggregatedVector = self.Aggregate(Vector4.Zero, (sum, elem) => new Vector4(
+                        sum.X + (float)Math.Sin(Math.PI * elem.X / 180.0),
+                        sum.Y + elem.Y,
+                        sum.Z + elem.Z,
+                        sum.W + (float)Math.Cos(Math.PI * elem.X / 180.0)
+                ));
+                var phase = Math.Atan2(aggregatedVector.X, aggregatedVector.W) * 180.0 / Math.PI;
+                if (phase < 0) phase += 360;
+
+                return new Vector3((float)phase, (float)(aggregatedVector.Y / array.Length), (float)(aggregatedVector.Z / array.Length));
+
+            }
 
         private double _hueStart;
         public double HueStart

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ImageChecker"
         xmlns:views="clr-namespace:ImageChecker.Views"
         mc:Ignorable="d"
-        Title="ImageAnalyzer" Height="450" Width="800"
+        Title="ImageAnalyzer" Height="600" Width="800"
         views:DropBehavior.Command="{Binding DropCommand}">
     <Window.Resources>
         <views:ColorToBrushConverter x:Key="ColorConverter"/>
@@ -14,8 +14,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.6*"/>
-            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.55*"/>
+            <RowDefinition Height="0.45*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -38,8 +38,8 @@
 
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.7*"/>
-                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.6*"/>
+                    <RowDefinition Height="0.4*"/>
                 </Grid.RowDefinitions>
                 <GroupBox Grid.Row="0" Header="Color">
                     <Grid>
@@ -99,7 +99,8 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
-
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -108,6 +109,12 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="cluster num:"/>
                         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ClusterNum, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Loop Upper Limit:"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LoopUpperLimit, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Method:"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding MethodList, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding Method, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Method" DisplayMemberPath="Name"/>
+                        
+                        
 
 
                     </Grid>

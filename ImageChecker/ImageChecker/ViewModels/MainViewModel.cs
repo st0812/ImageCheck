@@ -80,7 +80,7 @@ namespace ImageChecker.ViewModels
 
 
 
-            var a = Clustering.KMeans(features.Where(v => DstColorRegion.IsHSVColorInRegion(v.X, v.Y, v.Z)).ToArray(), ClusterNum);
+            var a = Clustering.KMeans(features.Where(v => DstColorRegion.IsHSVColorInRegion(v.X, v.Y, v.Z)).ToArray(), ClusterNum,LoopUpperLimit,Method);
             var center = a.Item1;
             var labels = a.Item2;
             
@@ -230,6 +230,7 @@ namespace ImageChecker.ViewModels
             set;
         }
 
+
         private int _clusterNum;
         public int ClusterNum
         {
@@ -242,22 +243,79 @@ namespace ImageChecker.ViewModels
                 SetProperty(ref this._clusterNum, value);
             }
         }
-
+        private int _loopUpperLimit;
+        public int LoopUpperLimit
+        {
+            get
+            {
+                return this._loopUpperLimit;
+            }
+            set
+            {
+                SetProperty(ref this._loopUpperLimit, value);
+            }
+        }
+        public class CalculateMethod
+        {
+            public string Name { get; set; }
+            public Func<IEnumerable<Vector3>, Vector3> Method { get; set; }
+        }
+        private List<CalculateMethod> _methodList;
+        public List<CalculateMethod> MethodList
+        {
+            get
+            {
+                return this._methodList;
+            }
+            set
+            {
+                SetProperty(ref this._methodList, value);
+            }
+        }
+        private Func<IEnumerable<Vector3>, Vector3> _method;
+        public  Func<IEnumerable<Vector3>, Vector3> Method
+        {
+            get
+            {
+                return this._method;
+            }
+            set
+            {
+                SetProperty(ref this._method, value);
+            }
+        }
+        
         public MainViewModel()
         {
 
-
+            MethodList = new List<CalculateMethod>
+            {
+               new CalculateMethod
+               {
+                   Name="Average",
+                   Method=HSVColorRegion.Average
+               },
+               new CalculateMethod
+               {
+                   Name="Average2",
+                   Method=HSVColorRegion.Average2
+               }
+                                           
+            };
+            //Method = MethodList[1].Method;
             isBusy = false;
             DstColorRegion = new HSVColorRegion()
             {
                 HueStart = 0.0,
                 HueEnd = 360.0,
                 SaturationStart = 0.0,
-                SaturationEnd = 101.0,
+                SaturationEnd = 100.0,
                 ValueStart = 0.0,
-                ValueEnd = 101.0,
+                ValueEnd = 100.0,
             };
             ClusterNum = 3;
+            LoopUpperLimit = 10;
+
 
         }
 
