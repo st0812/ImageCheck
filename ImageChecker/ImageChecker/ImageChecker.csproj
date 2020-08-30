@@ -78,6 +78,7 @@
     <Compile Include="NotificationObject.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\ColorToBrushConverter.cs" />
+    <Compile Include="Views\CommonDialogBehavior.cs" />
     <Compile Include="Views\DropBehavior.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
